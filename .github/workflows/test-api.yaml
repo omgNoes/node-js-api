@@ -5,12 +5,22 @@ on:
     types: [completed]
 
 jobs:
+  oh-ffs:
+    runs-on: ubuntu-latest
+    outputs:
+      lower-repo: ${{ steps.lower-repo.outputs.repository }}
+    steps:
+      - id: lower-repo
+        name: Repository to lowercase
+        run: |
+          echo "repository=${GITHUB_REPOSITORY@L}" >> $GITHUB_OUTPUT
   test-api:
     runs-on: ubuntu-latest
+    needs: oh-ffs
     container: ubuntu:22.04
     services:
       app:
-        image: ghcr.io/${{ github.repository }}:latest
+        image: ghcr.io/${{ needs.oh-ffs.outputs.lower-repo }}:latest
         # ports:
         #   - 3001:3000
         env:
