@@ -1,8 +1,8 @@
 name: Test Api
 on:
-  workflow_dispatch:
-  registry_package:
-      # types: [published]
+  workflow_run:
+    workflows: [Build & Publish Docker Image]
+    types: [completed]
 
 jobs:
   test-api:
