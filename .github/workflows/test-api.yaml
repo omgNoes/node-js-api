@@ -2,7 +2,7 @@ name: Test Api
 on:
   workflow_dispatch:
   registry_package:
-      types: [published]
+      # types: [published]
 
 jobs:
   test-api:
